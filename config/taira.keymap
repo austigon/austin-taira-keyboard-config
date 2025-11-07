@@ -33,7 +33,7 @@
                 default_layer {
 /* QWERTY
  * .----------------------------------------------------------------------------------------------------------------------------------.
- * |  `   |   1  |   2  |   3  |   4  |   5  |                                              |   6  |   7  |   8  |   9  |   0  | PScr |
+ * |  ~   |   1  |   2  |   3  |   4  |   5  |                                              |   6  |   7  |   8  |   9  |   0  | PScr |
  * |-------------+------+------+------+------+------+------+-------+-+-------+-------+------+------+------+------+------+------+------|
  * | ESC  |   Q  |   W  |   E  |   R  |   T  |                                              |   Y  |   U  |   I  |   O  |   P  |  \   |
  * |-------------+------+------+------+------+------+------+-------+-+-------+-------+------+------+------+------+------+------+------|
@@ -45,11 +45,11 @@
  * .----------------------------------------------------------------------------------------------------------------------------------.
  */
                         bindings = <
-&kp  GRAVE    &kp  N1    &kp  N2     &kp  N3     &kp  N4    &kp  N5                                                                        &kp  N6  &kp  N7    &kp  N8     &kp  N9    &kp  N0       &kp  PSCRN
-&kp  TAB      &kp  Q     &kp  W      &kp  E      &kp  R     &kp  T                                                                         &kp  Y   &kp  U     &kp  I      &kp  O     &kp  P        &kp  BSLH
-&lt HYPER ESC &kp  A     &kp  S      &kp  D      &kp  F     &kp  G                                                                         &kp  H   &kp  J     &kp  K      &kp  L     &kp  SEMI     &kp  SQT
-&kp  LSHFT    &kp  Z     &kp  X      &kp  C      &kp  V     &kp  B             &kp  DEL    &kp  PG_DN    &kp  PG_UP  &kp  HOME             &kp  N   &kp  M     &kp  COMMA  &kp  DOT   &kp  SLASH    &mt  RSHFT ENTER
-&kp  LCTRL    &kp LALT   &kp  LMETA  &kp  LALT                       &kp LMETA &kp  SPACE  &mo  LOWER    &mo  RAISE  &kp  BSPC &kp  RALT                       &kp  LEFT   &kp  DOWN  &kp  UP       &kp  RIGHT
+&kp  ESC      &kp  N1    &kp  N2     &kp  N3     &kp  N4    &kp  N5                                                                        &kp  N6  &kp  N7    &kp  N8     &kp  N9    &kp  N0     &mt  ADJUST DEL
+&kp  TAB      &kp  Q     &kp  W      &kp  E      &kp  R     &kp  T                                                                         &kp  Y   &kp  U     &kp  I      &kp  O     &kp  P      &kp  BSLH
+&mt  LCTRL ESC &kp  A    &kp  S      &kp  D      &kp  F     &kp  G                                                                         &kp  H   &kp  J     &kp  K      &kp  L     &kp  SEMI   &kp  SQT
+&kp  LSHFT    &kp  Z     &kp  X      &kp  C      &kp  V     &kp  B    &kp  C_VOL_DOWN &kp  C_VOL_UP                  &kp HOME &kp END      &kp  N   &kp  M     &kp  COMMA  &kp  DOT   &kp  SLASH  &kp  RSHFT ENTER
+&kp  LALT     &kp C_PP   &kp  BSPC  &kp ENTER               &kp LMETA &kp SPACE &mo  LOWER        &mo BSPC  &mt RSHIFT ENTER  &kp RAISE                        &kp  LEFT   &kp  DOWN  &kp  UP     &kp  RIGHT
                         >;
                 };
 
@@ -68,11 +68,11 @@
  * .----------------------------------------------------------------------------------------------------------------------------------.
  */
                         bindings = <
-&none          &kp  F1      &kp  F2      &kp  F3     &kp  F4     &kp  F5                                                                        &kp  F6    &kp  F7    &kp  F8     &kp  F9    &kp  F10      &kp  F11
-&kp  GRAVE     &kp  N1      &kp  N2      &kp  N3     &kp  N4     &kp  N5                                                                        &kp  N6    &kp  N7    &kp  N8     &kp  N9    &kp  N0       &kp  F12
-&kp  LS(GRAVE) &kp LS(N1)   &kp  LS(N2)  &kp  LS(N3) &kp  LS(N4) &kp  LS(N5)                                                                    &kp LS(N6) &kp LS(N7) &kp LS(N8)  &kp LS(N9) &kp  LS(N0)   &none
-&none          &kp EQUAL    &kp MINUS    &kp  LPAR   &kp  LBKT   &kp  LBRC          &none       &none         &none       &none                 &kp RBRC   &kp RBKT   &kp RPAR    &kp PLUS   &kp  UNDER    &none
-&trans         &trans       &trans       &trans                           &trans    &trans      &trans        &trans      &trans    &trans                            &trans      &trans     &trans        &trans
+&none          &kp  F1      &kp  F2      &kp  F3     &kp  F4     &kp  F5                                                                        &kp  F6    &kp  F7       &kp  F8  &kp  F9        &kp  F10   &kp  F11
+&kp  TILDE     &trans       &kp  TILDE   &kp  LBRC   &kp  RBRC   &trans                                                                         &kp  HOME  &kp  RC(LEFT) &kp UP   &kp  RC(RIGHT) &kp END    &kp  F12
+&none          &kp MINUS    &kp  PLUS    &kp  LS(9)  &kp  LS(0)  &trans                                                                         &kp LS(N6) &kp  LEFT     &kp DOWN &kp  RIGHT     &none      &none
+&none          &kp UNDER    &kp  EQUAL   &kp  LPAR   &kp  LBKT   &trans             &none       &none         &none       &none                 &trans     &trans        &trans   &trans         &trans     &none
+&trans         &trans       &kp C_PREV   &kp  C_NEXT                      &trans    &trans      &trans        &trans      &trans    &trans                            &trans      &trans         &trans     &trans
                         >;
                 };
 
@@ -91,11 +91,11 @@
  * .----------------------------------------------------------------------------------------------------------------------------------.
  */
                         bindings = <
-&none          &kp  F1      &kp  F2      &kp  F3     &kp  F4     &kp  F5                                                                        &kp  F6    &kp  F7    &kp  F8     &kp  F9    &kp  F10      &kp  F11
-&kp  GRAVE     &kp  N1      &kp  N2      &kp  N3     &kp  N4     &kp  N5                                                                        &kp  N6    &kp  N7    &kp  N8     &kp  N9    &kp  N0       &kp  F12
-&kp  LS(GRAVE) &kp LS(N1)   &kp  LS(N2)  &kp  LS(N3) &kp  LS(N4) &kp  LS(N5)                                                                    &kp LS(N6) &kp LS(N7) &kp LS(N8)  &kp LS(N9) &kp  LS(N0)   &none
-&none          &kp EQUAL    &kp MINUS    &kp  LPAR   &kp  LBKT   &kp  LBRC          &none       &none         &none       &none                 &kp RBRC   &kp RBKT   &kp RPAR    &kp PLUS   &kp  UNDER    &none
-&trans         &trans       &trans       &trans                           &trans    &trans      &trans        &trans      &trans    &trans                            &trans      &trans     &trans        &trans
+&none          &kp  F1      &kp  F2      &kp  F3     &kp  F4     &kp  F5                                                                        &kp  F6    &kp  F7       &kp  F8     &kp  F9        &kp  F10      &kp  F11
+&kp  GRAVE     &kp  N1      &kp  N7      &kp  N8     &kp  N9     &none                                                                          &kp  HOME  &kp  RC(LEFT) &kp  UP     &kp  RC(RIGHT) &kp  END      &kp  F12
+&kp  LS(GRAVE) &kp LS(N1)   &kp  N4      &kp  N5     &kp  N6     &none                                                                          &kp LS(N6) &kp  LEFT     &kp  DOWN   &kp  RIGHT     &none         &none
+&none          &kp N0       &kp  N1      &kp  N2     &kp  N3     &none              &none       &none         &none       &none                 &kp RBRC   &kp  RBKT     &kp RPAR    &kp PLUS       &kp  UNDER    &none
+&trans         &kp SLASH    &kp  UNDER   &kp  DOT                         &trans    &trans      &trans        &trans      &trans    &trans                            &trans      &trans     &trans        &trans
                         >;
                 };
 
@@ -114,7 +114,7 @@
  * .----------------------------------------------------------------------------------------------------------------------------------.
  */
                         bindings = <
-&bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &bt BT_SEL 5                                                                          &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &bt BT_SEL 5
+&bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &bt BT_SEL 5                                                                          &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none
 &none        &none        &none        &none        &none        &none                                                                                 &none        &none        &none        &none        &none        &none
 &none        &none        &none        &none        &none        &tog GAME                                                                             &none        &none        &none        &none        &none        &none
 &none        &none        &none        &none        &none        &none                     &none       &none         &none       &none                 &none        &none        &none        &none        &none        &none
