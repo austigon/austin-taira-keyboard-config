@@ -32,6 +32,7 @@
                 compatible = "zmk,keymap";
 
                 default_layer {
+                        display-name = "Base";
 /* QWERTY
  * .-------------------------------------------------------------------------------------------------------------------------------------.
  * | Esc  |  1   |  2   |  3   |  4   |  5   |                                                  |  6   |  7   |  8   |  9   |  0   |Del/Adj|
@@ -40,21 +41,22 @@
  * |------+------+------+------+------+------|                                                  |------+------+------+------+------+-------|
  * |Ctl/Es|  A   |  S   |  D   |  F   |  G   |                                                  |  H   |  J   |  K   |  L   |  ;   |  '    |
  * |------+------+------+------+------+------+------+------.                  .------+------+------+------+------+------+------+-------|
- * | Shift|  Z   |  X   |  C   |  V   |  B   |      | Vol- | Vol+ |  | Home | End  |      |  N   |  M   |  ,   |  .   |  /   | Shift |
+ * | Shift|  Z   |  X   |  C   |  V   |  B   |      | Vol- | Vol+ |  | Home | End  |      |  N   |  M   |  ,   |  .   |  /   | Raise |
  * |------+------+------+------+------+------+------+------+------|  |------+------+------+------+------+------+------+------+-------|
- * | Alt  | Play | Rwnd | FFwd |             | Meta |Space |Lower |  | Bspc |Sft/En|Raise |             | Left | Down |  Up  | Right |
+ * | Alt  | Play | Rwnd | FFwd |             | Meta |Space |Lower |  | Del  |Sft/En| Bspc |             | Left | Down |  Up  | Right |
  * '-------------------------------------------------------------------------------------------------------------------------------------'
  */
                         bindings = <
 &kp  ESC       &kp  N1   &kp  N2   &kp  N3   &kp  N4  &kp  N5                                                                   &kp  N6  &kp  N7    &kp  N8     &kp  N9    &kp  N0     &lt  ADJUST DEL
 &kp  TAB       &kp  Q    &kp  W    &kp  E    &kp  R   &kp  T                                                                    &kp  Y   &kp  U     &kp  I      &kp  O     &kp  P      &kp  BSLH
 &mt  LCTRL ESC &kp  A    &kp  S    &kp  D    &kp  F   &kp  G                                                                    &kp  H   &kp  J     &kp  K      &kp  L     &kp  SEMI   &kp  SQT
-&kp  LSHFT     &kp  Z    &kp  X    &kp  C    &kp  V   &kp  B    &kp C_VOL_DN  &kp C_VOL_UP              &kp HOME  &kp END       &kp  N   &kp  M     &kp  COMMA  &kp  DOT   &kp  SLASH  &kp  RSHIFT
-&kp  LALT      &kp C_PP  &kp C_RW  &kp C_FF      &kp LMETA &kp SPACE &mo  LOWER          &kp BSPC  &mt RSHIFT ENTER  &mo RAISE                    &kp  LEFT   &kp  DOWN  &kp  UP     &kp  RIGHT
+&kp  LSHFT     &kp  Z    &kp  X    &kp  C    &kp  V   &kp  B    &kp C_VOL_DN  &kp C_VOL_UP              &kp HOME  &kp END       &kp  N   &kp  M     &kp  COMMA  &kp  DOT   &kp  SLASH  &mo  RAISE
+&kp  LALT      &kp C_PP  &kp C_RW  &kp C_FF      &kp LMETA &kp SPACE &mo  LOWER          &kp DEL   &mt RSHIFT ENTER  &kp BSPC                     &kp  LEFT   &kp  DOWN  &kp  UP     &kp  RIGHT
                         >;
                 };
 
                 game_layer {
+                        display-name = "Game";
 /* GAME (toggled from ADJUST)
  * .-------------------------------------------------------------------------------------------------------------------------------------.
  * |  `   |  1   |  2   |  3   |  4   |  5   |                                                  |  6   |  7   |  8   |  9   |  0   | PScr  |
@@ -63,21 +65,22 @@
  * |------+------+------+------+------+------|                                                  |------+------+------+------+------+-------|
  * | Esc  |  A   |  S   |  D   |  F   |  G   |                                                  |  H   |  J   |  K   |  L   |  ;   |  '    |
  * |------+------+------+------+------+------+------+------.                  .------+------+------+------+------+------+------+-------|
- * | Shift|  Z   |  X   |  C   |  V   |  B   |      | Del  | PgDn |  | PgUp | Home |      |  N   |  M   |  ,   |  .   |  /   | Enter |
+ * | Shift|  Z   |  X   |  C   |  V   |  B   |      | Del  | PgDn |  | PgUp | Home |      |  N   |  M   |  ,   |  .   |  /   | Raise |
  * |------+------+------+------+------+------+------+------+------|  |------+------+------+------+------+------+------+------+-------|
- * | Ctrl | Alt  | Meta | Alt  |             | Meta |Space |Lower |  |Raise | Bspc | RAlt |             | Left | Down |  Up  | Right |
+ * | Ctrl | Alt  | Meta | Alt  |             | Meta |Space |Lower |  | Bspc |Enter | RAlt |             | Left | Down |  Up  | Right |
  * '-------------------------------------------------------------------------------------------------------------------------------------'
  */
                         bindings = <
 &kp  GRAVE    &kp  N1    &kp  N2     &kp  N3     &kp  N4    &kp  N5                                                                        &kp  N6  &kp  N7    &kp  N8     &kp  N9    &kp  N0       &kp  PSCRN
 &kp  TAB      &kp  Q     &kp  W      &kp  E      &kp  R     &kp  T                                                                         &kp  Y   &kp  U     &kp  I      &kp  O     &kp  P        &kp  BSLH
 &kp  ESC      &kp  A     &kp  S      &kp  D      &kp  F     &kp  G                                                                         &kp  H   &kp  J     &kp  K      &kp  L     &kp  SEMI     &kp  SQT
-&kp  LSHFT    &kp  Z     &kp  X      &kp  C      &kp  V     &kp  B             &kp  DEL    &kp  PG_DN    &kp  PG_UP  &kp  HOME             &kp  N   &kp  M     &kp  COMMA  &kp  DOT   &kp  SLASH    &kp  ENTER
-&kp  LCTRL    &kp LALT   &kp  LMETA  &kp  LALT                       &kp LMETA &kp  SPACE  &mo  LOWER    &mo  RAISE  &kp  BSPC &kp  RALT                       &kp  LEFT   &kp  DOWN  &kp  UP       &kp  RIGHT
+&kp  LSHFT    &kp  Z     &kp  X      &kp  C      &kp  V     &kp  B             &kp  DEL    &kp  PG_DN    &kp  PG_UP  &kp  HOME             &kp  N   &kp  M     &kp  COMMA  &kp  DOT   &kp  SLASH    &mo  RAISE
+&kp  LCTRL    &kp LALT   &kp  LMETA  &kp  LALT                       &kp LMETA &kp  SPACE  &mo  LOWER    &kp  BSPC   &kp  ENTER &kp RALT                       &kp  LEFT   &kp  DOWN  &kp  UP       &kp  RIGHT
                         >;
                 };
 
                 lower_layer {
+                        display-name = "Lower";
 /* LOWER
  * .-------------------------------------------------------------------------------------------------------------------------------------.
  * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                                                  |  F6  |  F7  |  F8  |  F9  | F10  | F11   |
@@ -95,12 +98,13 @@
 &none          &kp  F1      &kp  F2      &kp  F3     &kp  F4     &kp  F5                                                                        &kp  F6    &kp  F7       &kp  F8  &kp  F9        &kp  F10   &kp  F11
 &kp  TILDE     &trans       &kp  TILDE   &kp  LBRC   &kp  RBRC   &trans                                                                         &kp  HOME  &kp  RC(LEFT) &kp UP   &kp  RC(RIGHT) &kp END    &kp  F12
 &none          &kp MINUS    &kp  PLUS    &kp  LPAR   &kp  RPAR   &trans                                                                         &kp LS(N6) &kp  LEFT     &kp DOWN &kp  RIGHT     &none      &none
-&none          &kp UNDER    &kp  EQUAL   &kp  LPAR   &kp  LBKT   &trans             &none       &none         &none       &none                 &trans     &trans        &trans   &trans         &trans     &none
+&none          &kp UNDER    &kp  EQUAL   &kp  LPAR   &kp  LBKT   &trans             &none       &none         &none       &none                 &trans     &trans        &trans   &trans         &trans     &trans
 &trans         &trans       &kp C_PREV   &kp  C_NEXT                      &trans    &trans      &trans        &trans      &trans    &trans                            &trans      &trans         &trans     &trans
                         >;
                 };
 
                 raise_layer {
+                        display-name = "Raise";
 /* RAISE
  * .-------------------------------------------------------------------------------------------------------------------------------------.
  * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                                                  |  F6  |  F7  |  F8  |  F9  | F10  | F11   |
@@ -118,15 +122,16 @@
 &none          &kp  F1      &kp  F2      &kp  F3     &kp  F4     &kp  F5                                                                        &kp  F6    &kp  F7       &kp  F8     &kp  F9        &kp  F10      &kp  F11
 &kp  GRAVE     &kp  N1      &kp  N7      &kp  N8     &kp  N9     &none                                                                          &kp  HOME  &kp  RC(LEFT) &kp  UP     &kp  RC(RIGHT) &kp  END      &kp  F12
 &kp  LS(GRAVE) &kp LS(N1)   &kp  N4      &kp  N5     &kp  N6     &none                                                                          &kp LS(N6) &kp  LEFT     &kp  DOWN   &kp  RIGHT     &none         &none
-&none          &kp N0       &kp  N1      &kp  N2     &kp  N3     &none              &none       &none         &none       &none                 &kp RBRC   &kp  RBKT     &kp RPAR    &kp PLUS       &kp  UNDER    &none
+&none          &kp N0       &kp  N1      &kp  N2     &kp  N3     &none              &none       &none         &none       &none                 &kp RBRC   &kp  RBKT     &kp RPAR    &kp PLUS       &kp  UNDER    &trans
 &trans         &kp SLASH    &kp  UNDER   &kp  DOT                         &trans    &trans      &trans        &trans      &trans    &trans                            &trans      &trans     &trans        &trans
                         >;
                 };
 
                 adjust_layer {
+                        display-name = "Adjust";
 /* ADJUST (Lower + Raise, or hold Del/Adj)
  * .-------------------------------------------------------------------------------------------------------------------------------------.
- * | BT0  | BT1  | BT2  | BT3  | BT4  |      |                                                  | BT0  | BT1  | BT2  | BT3  | BT4  |       |
+ * | BT0  | BT1  | BT2  | BT3  | BT4  |Studio|                                                  | BT0  | BT1  | BT2  | BT3  | BT4  |       |
  * |------+------+------+------+------+------|                                                  |------+------+------+------+------+-------|
  * | Boot |      |      |      |      |      |                                                  |      |      |      |      |      | Boot  |
  * |------+------+------+------+------+------|                                                  |------+------+------+------+------+-------|
@@ -137,14 +142,24 @@
  * |BT Clr|      |      |      |             |      |      |      |  |      |      |      |             |      |      |      |BTClrAl|
  * '-------------------------------------------------------------------------------------------------------------------------------------'
  * Boot/Reset act on the half they are pressed on, so each half has its own pair.
+ * Studio unlocks the keyboard so ZMK Studio can change the keymap.
  */
                         bindings = <
-&bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none                                                                                 &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none
+&bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &studio_unlock                                                                        &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none
 &bootloader  &none        &none        &none        &none        &none                                                                                 &none        &none        &none        &none        &none        &bootloader
 &sys_reset   &none        &none        &none        &none        &tog GAME                                                                             &none        &none        &none        &none        &none        &sys_reset
-&none        &none        &none        &none        &none        &none                     &none       &none         &none       &none                 &none        &none        &none        &none        &none        &none
+&none        &none        &none        &none        &none        &none                     &none       &none         &none       &none                 &none        &none        &none        &none        &none        &trans
 &bt BT_CLR   &none        &none        &none                                     &none     &none       &trans        &trans      &none     &none                                 &none        &none        &none        &bt BT_CLR_ALL
                         >;
+                };
+
+                // Spare layers that only exist in ZMK Studio builds, for adding layers from Studio.
+                extra1 {
+                        status = "reserved";
+                };
+
+                extra2 {
+                        status = "reserved";
                 };
         };
 };

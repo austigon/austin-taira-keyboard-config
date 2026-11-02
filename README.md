@@ -29,9 +29,9 @@ The left half is the central (the one that connects to the computer). Hold `Lowe
 |------+------+------+------+------+------|                                                  |------+------+------+------+------+-------|
 |Ctl/Es|  A   |  S   |  D   |  F   |  G   |                                                  |  H   |  J   |  K   |  L   |  ;   |  '    |
 |------+------+------+------+------+------+------+------.                  .------+------+------+------+------+------+------+-------|
-| Shift|  Z   |  X   |  C   |  V   |  B   |      | Vol- | Vol+ |  | Home | End  |      |  N   |  M   |  ,   |  .   |  /   | Shift |
+| Shift|  Z   |  X   |  C   |  V   |  B   |      | Vol- | Vol+ |  | Home | End  |      |  N   |  M   |  ,   |  .   |  /   | Raise |
 |------+------+------+------+------+------+------+------+------|  |------+------+------+------+------+------+------+------+-------|
-| Alt  | Play | Rwnd | FFwd |             | Meta |Space |Lower |  | Bspc |Sft/En|Raise |             | Left | Down |  Up  | Right |
+| Alt  | Play | Rwnd | FFwd |             | Meta |Space |Lower |  | Del  |Sft/En| Bspc |             | Left | Down |  Up  | Right |
 '-------------------------------------------------------------------------------------------------------------------------------------'
 ```
 
@@ -49,9 +49,9 @@ No hold-tap keys, so nothing is delayed or misfires mid-game.
 |------+------+------+------+------+------|                                                  |------+------+------+------+------+-------|
 | Esc  |  A   |  S   |  D   |  F   |  G   |                                                  |  H   |  J   |  K   |  L   |  ;   |  '    |
 |------+------+------+------+------+------+------+------.                  .------+------+------+------+------+------+------+-------|
-| Shift|  Z   |  X   |  C   |  V   |  B   |      | Del  | PgDn |  | PgUp | Home |      |  N   |  M   |  ,   |  .   |  /   | Enter |
+| Shift|  Z   |  X   |  C   |  V   |  B   |      | Del  | PgDn |  | PgUp | Home |      |  N   |  M   |  ,   |  .   |  /   | Raise |
 |------+------+------+------+------+------+------+------+------|  |------+------+------+------+------+------+------+------+-------|
-| Ctrl | Alt  | Meta | Alt  |             | Meta |Space |Lower |  |Raise | Bspc | RAlt |             | Left | Down |  Up  | Right |
+| Ctrl | Alt  | Meta | Alt  |             | Meta |Space |Lower |  | Bspc |Enter | RAlt |             | Left | Down |  Up  | Right |
 '-------------------------------------------------------------------------------------------------------------------------------------'
 ```
 
@@ -93,7 +93,7 @@ Blank keys fall through to the layer below (thumb keys and modifiers) or do noth
 
 ```
 .-------------------------------------------------------------------------------------------------------------------------------------.
-| BT0  | BT1  | BT2  | BT3  | BT4  |      |                                                  | BT0  | BT1  | BT2  | BT3  | BT4  |       |
+| BT0  | BT1  | BT2  | BT3  | BT4  |Studio|                                                  | BT0  | BT1  | BT2  | BT3  | BT4  |       |
 |------+------+------+------+------+------|                                                  |------+------+------+------+------+-------|
 | Boot |      |      |      |      |      |                                                  |      |      |      |      |      | Boot  |
 |------+------+------+------+------+------|                                                  |------+------+------+------+------+-------|
@@ -109,3 +109,4 @@ Blank keys fall through to the layer below (thumb keys and modifiers) or do noth
 - `BT Clr` forgets the computer on the current profile; `BTClrAl` forgets all of them.
 - `Boot` puts that half into flashing mode; `Reset` restarts that half. Each half has its own pair.
 - `Game` toggles the Game layer on and off.
+- `Studio` unlocks the keyboard so [ZMK Studio](https://zmk.studio/) can change the keymap.
