@@ -9,12 +9,13 @@
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/bt.h>
 
+// GAME sits directly above DEFAULT so LOWER/RAISE/ADJUST stay reachable
+// (and GAME can be toggled off again) while it is active.
 #define DEFAULT 0
-#define LOWER   1
-#define RAISE   2
-#define ADJUST  3
-#define HYPER   4
-#define GAME    5
+#define GAME    1
+#define LOWER   2
+#define RAISE   3
+#define ADJUST  4
 
 / {
 
@@ -22,8 +23,8 @@
                 compatible = "zmk,conditional-layers";
 
                 tri_layer {
-                        if-layers  = <1 2>;
-                        then-layer = <3>;
+                        if-layers  = <LOWER RAISE>;
+                        then-layer = <ADJUST>;
                 };
         };
 
@@ -32,63 +33,86 @@
 
                 default_layer {
 /* QWERTY
- * .----------------------------------------------------------------------------------------------------------------------------------.
- * |  ~   |   1  |   2  |   3  |   4  |   5  |                                              |   6  |   7  |   8  |   9  |   0  | PScr |
- * |-------------+------+------+------+------+------+------+-------+-+-------+-------+------+------+------+------+------+------+------|
- * | ESC  |   Q  |   W  |   E  |   R  |   T  |                                              |   Y  |   U  |   I  |   O  |   P  |  \   |
- * |-------------+------+------+------+------+------+------+-------+-+-------+-------+------+------+------+------+------+------+------|
- * | Tab  |   A  |   S  |   D  |   F  |   G  |                                              |   H  |   J  |   K  |   L  |   ;  |  '   |
- * |-------------+------+------+------+------+------+------+-------+-+-------+-------+------+------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |      | Del  | PGDN  | | PGUP  | Home  |      |   N  |   M  |   ,  |   .  |   /  | Shift|
- * |-------------+------+------+------+------+------+------+-------+-+-------+-------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | Meta | Alt  |             | Meta | Space| Lower | | Raise | Enter | RAlt |             | LEFT | DOWN | UP   | RIGHT|
- * .----------------------------------------------------------------------------------------------------------------------------------.
+ * .-------------------------------------------------------------------------------------------------------------------------------------.
+ * | Esc  |  1   |  2   |  3   |  4   |  5   |                                                  |  6   |  7   |  8   |  9   |  0   |Del/Adj|
+ * |------+------+------+------+------+------|                                                  |------+------+------+------+------+-------|
+ * | Tab  |  Q   |  W   |  E   |  R   |  T   |                                                  |  Y   |  U   |  I   |  O   |  P   |  \    |
+ * |------+------+------+------+------+------|                                                  |------+------+------+------+------+-------|
+ * |Ctl/Es|  A   |  S   |  D   |  F   |  G   |                                                  |  H   |  J   |  K   |  L   |  ;   |  '    |
+ * |------+------+------+------+------+------+------+------.                  .------+------+------+------+------+------+------+-------|
+ * | Shift|  Z   |  X   |  C   |  V   |  B   |      | Vol- | Vol+ |  | Home | End  |      |  N   |  M   |  ,   |  .   |  /   | Shift |
+ * |------+------+------+------+------+------+------+------+------|  |------+------+------+------+------+------+------+------+-------|
+ * | Alt  | Play | Rwnd | FFwd |             | Meta |Space |Lower |  | Bspc |Sft/En|Raise |             | Left | Down |  Up  | Right |
+ * '-------------------------------------------------------------------------------------------------------------------------------------'
  */
                         bindings = <
-&kp  ESC      &kp  N1   &kp  N2   &kp N3   &kp  N4  &kp  N5                                                                   &kp  N6  &kp  N7    &kp  N8     &kp  N9    &kp  N0     &mt  ADJUST DEL
-&kp  TAB      &kp  Q    &kp  W    &kp E    &kp  R   &kp  T                                                                    &kp  Y   &kp  U     &kp  I      &kp  O     &kp  P      &kp  BSLH
-&mt  LCTRL ESC &kp  A   &kp  S    &kp D    &kp  F   &kp  G                                                                    &kp  H   &kp  J     &kp  K      &kp  L     &kp  SEMI   &kp  SQT
-&kp  LSHFT    &kp  Z    &kp  X    &kp C    &kp  V   &kp  B    &kp C_VOL_DOWN  &kp C_VOL_UP              &kp HOME  &kp END     &kp  N   &kp  M     &kp  COMMA  &kp  DOT   &kp  SLASH  &kp  RSHIFT
-&kp  LALT     &kp C_PP  &kp CC_RW &kp CC_FF      &kp LMETA &kp SPACE &mo  LOWER        &kp BSPC  &mt RSHIFT ENTER  &mo RAISE                      &kp  LEFT   &kp  DOWN  &kp  UP     &kp  RIGHT
+&kp  ESC       &kp  N1   &kp  N2   &kp  N3   &kp  N4  &kp  N5                                                                   &kp  N6  &kp  N7    &kp  N8     &kp  N9    &kp  N0     &lt  ADJUST DEL
+&kp  TAB       &kp  Q    &kp  W    &kp  E    &kp  R   &kp  T                                                                    &kp  Y   &kp  U     &kp  I      &kp  O     &kp  P      &kp  BSLH
+&mt  LCTRL ESC &kp  A    &kp  S    &kp  D    &kp  F   &kp  G                                                                    &kp  H   &kp  J     &kp  K      &kp  L     &kp  SEMI   &kp  SQT
+&kp  LSHFT     &kp  Z    &kp  X    &kp  C    &kp  V   &kp  B    &kp C_VOL_DN  &kp C_VOL_UP              &kp HOME  &kp END       &kp  N   &kp  M     &kp  COMMA  &kp  DOT   &kp  SLASH  &kp  RSHIFT
+&kp  LALT      &kp C_PP  &kp C_RW  &kp C_FF      &kp LMETA &kp SPACE &mo  LOWER          &kp BSPC  &mt RSHIFT ENTER  &mo RAISE                    &kp  LEFT   &kp  DOWN  &kp  UP     &kp  RIGHT
+                        >;
+                };
+
+                game_layer {
+/* GAME (toggled from ADJUST)
+ * .-------------------------------------------------------------------------------------------------------------------------------------.
+ * |  `   |  1   |  2   |  3   |  4   |  5   |                                                  |  6   |  7   |  8   |  9   |  0   | PScr  |
+ * |------+------+------+------+------+------|                                                  |------+------+------+------+------+-------|
+ * | Tab  |  Q   |  W   |  E   |  R   |  T   |                                                  |  Y   |  U   |  I   |  O   |  P   |  \    |
+ * |------+------+------+------+------+------|                                                  |------+------+------+------+------+-------|
+ * | Esc  |  A   |  S   |  D   |  F   |  G   |                                                  |  H   |  J   |  K   |  L   |  ;   |  '    |
+ * |------+------+------+------+------+------+------+------.                  .------+------+------+------+------+------+------+-------|
+ * | Shift|  Z   |  X   |  C   |  V   |  B   |      | Del  | PgDn |  | PgUp | Home |      |  N   |  M   |  ,   |  .   |  /   | Enter |
+ * |------+------+------+------+------+------+------+------+------|  |------+------+------+------+------+------+------+------+-------|
+ * | Ctrl | Alt  | Meta | Alt  |             | Meta |Space |Lower |  |Raise | Bspc | RAlt |             | Left | Down |  Up  | Right |
+ * '-------------------------------------------------------------------------------------------------------------------------------------'
+ */
+                        bindings = <
+&kp  GRAVE    &kp  N1    &kp  N2     &kp  N3     &kp  N4    &kp  N5                                                                        &kp  N6  &kp  N7    &kp  N8     &kp  N9    &kp  N0       &kp  PSCRN
+&kp  TAB      &kp  Q     &kp  W      &kp  E      &kp  R     &kp  T                                                                         &kp  Y   &kp  U     &kp  I      &kp  O     &kp  P        &kp  BSLH
+&kp  ESC      &kp  A     &kp  S      &kp  D      &kp  F     &kp  G                                                                         &kp  H   &kp  J     &kp  K      &kp  L     &kp  SEMI     &kp  SQT
+&kp  LSHFT    &kp  Z     &kp  X      &kp  C      &kp  V     &kp  B             &kp  DEL    &kp  PG_DN    &kp  PG_UP  &kp  HOME             &kp  N   &kp  M     &kp  COMMA  &kp  DOT   &kp  SLASH    &kp  ENTER
+&kp  LCTRL    &kp LALT   &kp  LMETA  &kp  LALT                       &kp LMETA &kp  SPACE  &mo  LOWER    &mo  RAISE  &kp  BSPC &kp  RALT                       &kp  LEFT   &kp  DOWN  &kp  UP       &kp  RIGHT
                         >;
                 };
 
                 lower_layer {
-/* QWERTY
- * .----------------------------------------------------------------------------------------------------------------------------------.
- * |  `   |   1  |   2  |   3  |   4  |   5  |                                              |   6  |   7  |   8  |   9  |   0  | PScr |
- * |-------------+------+------+------+------+------+------+-------+-+-------+-------+------+------+------+------+------+------+------|
- * | ESC  |   Q  |   W  |   E  |   R  |   T  |                                              |   Y  |   U  |   I  |   O  |   P  |  \   |
- * |-------------+------+------+------+------+------+------+-------+-+-------+-------+------+------+------+------+------+------+------|
- * | Tab  |   A  |   S  |   D  |   F  |   G  |                                              |   H  |   J  |   K  |   L  |   ;  |  '   |
- * |-------------+------+------+------+------+------+------+-------+-+-------+-------+------+------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |      | Del  | PGDN  | | PGUP  | Home  |      |   N  |   M  |   ,  |   .  |   /  | Shift|
- * |-------------+------+------+------+------+------+------+-------+-+-------+-------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | Meta | Alt  |             | Meta | Space| Lower | | Raise | Enter | RAlt |             | LEFT | DOWN | UP   | RIGHt|
- * .----------------------------------------------------------------------------------------------------------------------------------.
+/* LOWER
+ * .-------------------------------------------------------------------------------------------------------------------------------------.
+ * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                                                  |  F6  |  F7  |  F8  |  F9  | F10  | F11   |
+ * |------+------+------+------+------+------|                                                  |------+------+------+------+------+-------|
+ * |  ~   |      |  ~   |  {   |  }   |      |                                                  | Home |Wd Lft|  Up  |Wd Rgt| End  | F12   |
+ * |------+------+------+------+------+------|                                                  |------+------+------+------+------+-------|
+ * |      |  -   |  +   |  (   |  )   |      |                                                  |  ^   | Left | Down |Right |      |       |
+ * |------+------+------+------+------+------+------+------.                  .------+------+------+------+------+------+------+-------|
+ * |      |  _   |  =   |  (   |  [   |      |      |      |      |  |      |      |      |      |      |      |      |      |       |
+ * |------+------+------+------+------+------+------+------+------|  |------+------+------+------+------+------+------+------+-------|
+ * |      |      | Prev | Next |             |      |      |      |  |      |      |      |             |      |      |      |       |
+ * '-------------------------------------------------------------------------------------------------------------------------------------'
  */
                         bindings = <
 &none          &kp  F1      &kp  F2      &kp  F3     &kp  F4     &kp  F5                                                                        &kp  F6    &kp  F7       &kp  F8  &kp  F9        &kp  F10   &kp  F11
 &kp  TILDE     &trans       &kp  TILDE   &kp  LBRC   &kp  RBRC   &trans                                                                         &kp  HOME  &kp  RC(LEFT) &kp UP   &kp  RC(RIGHT) &kp END    &kp  F12
-&none          &kp MINUS    &kp  PLUS    &kp  LS(9)  &kp  LS(0)  &trans                                                                         &kp LS(N6) &kp  LEFT     &kp DOWN &kp  RIGHT     &none      &none
+&none          &kp MINUS    &kp  PLUS    &kp  LPAR   &kp  RPAR   &trans                                                                         &kp LS(N6) &kp  LEFT     &kp DOWN &kp  RIGHT     &none      &none
 &none          &kp UNDER    &kp  EQUAL   &kp  LPAR   &kp  LBKT   &trans             &none       &none         &none       &none                 &trans     &trans        &trans   &trans         &trans     &none
 &trans         &trans       &kp C_PREV   &kp  C_NEXT                      &trans    &trans      &trans        &trans      &trans    &trans                            &trans      &trans         &trans     &trans
                         >;
                 };
 
                 raise_layer {
-/* QWERTY
- * .----------------------------------------------------------------------------------------------------------------------------------.
- * |  `   |   1  |   2  |   3  |   4  |   5  |                                              |   6  |   7  |   8  |   9  |   0  | PScr |
- * |-------------+------+------+------+------+------+------+-------+-+-------+-------+------+------+------+------+------+------+------|
- * | ESC  |   Q  |   W  |   E  |   R  |   T  |                                              |   Y  |   U  |   I  |   O  |   P  |  \   |
- * |-------------+------+------+------+------+------+------+-------+-+-------+-------+------+------+------+------+------+------+------|
- * | Tab  |   A  |   S  |   D  |   F  |   G  |                                              |   H  |   J  |   K  |   L  |   ;  |  '   |
- * |-------------+------+------+------+------+------+------+-------+-+-------+-------+------+------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |      | Del  | PGDN  | | PGUP  | Home  |      |   N  |   M  |   ,  |   .  |   /  | Shift|
- * |-------------+------+------+------+------+------+------+-------+-+-------+-------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | Meta | Alt  |             | Meta | Space| Lower | | Raise | Enter | RAlt |             | LEFT | DOWN | UP   | RIGHT|
- * .----------------------------------------------------------------------------------------------------------------------------------.
+/* RAISE
+ * .-------------------------------------------------------------------------------------------------------------------------------------.
+ * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                                                  |  F6  |  F7  |  F8  |  F9  | F10  | F11   |
+ * |------+------+------+------+------+------|                                                  |------+------+------+------+------+-------|
+ * |  `   |  1   |  7   |  8   |  9   |      |                                                  | Home |Wd Lft|  Up  |Wd Rgt| End  | F12   |
+ * |------+------+------+------+------+------|                                                  |------+------+------+------+------+-------|
+ * |  ~   |  !   |  4   |  5   |  6   |      |                                                  |  ^   | Left | Down |Right |      |       |
+ * |------+------+------+------+------+------+------+------.                  .------+------+------+------+------+------+------+-------|
+ * |      |  0   |  1   |  2   |  3   |      |      |      |      |  |      |      |      |  }   |  ]   |  )   |  +   |  _   |       |
+ * |------+------+------+------+------+------+------+------+------|  |------+------+------+------+------+------+------+------+-------|
+ * |      |  /   |  _   |  .   |             |      |      |      |  |      |      |      |             |      |      |      |       |
+ * '-------------------------------------------------------------------------------------------------------------------------------------'
  */
                         bindings = <
 &none          &kp  F1      &kp  F2      &kp  F3     &kp  F4     &kp  F5                                                                        &kp  F6    &kp  F7       &kp  F8     &kp  F9        &kp  F10      &kp  F11
@@ -100,58 +124,26 @@
                 };
 
                 adjust_layer {
-/* QWERTY
- * .----------------------------------------------------------------------------------------------------------------------------------.
- * |  `   |   1  |   2  |   3  |   4  |   5  |                                              |   6  |   7  |   8  |   9  |   0  | PScr |
- * |-------------+------+------+------+------+------+------+-------+-+-------+-------+------+------+------+------+------+------+------|
- * | ESC  |   Q  |   W  |   E  |   R  |   T  |                                              |   Y  |   U  |   I  |   O  |   P  |  \   |
- * |-------------+------+------+------+------+------+------+-------+-+-------+-------+------+------+------+------+------+------+------|
- * | Tab  |   A  |   S  |   D  |   F  |   G  |                                              |   H  |   J  |   K  |   L  |   ;  |  '   |
- * |-------------+------+------+------+------+------+------+-------+-+-------+-------+------+------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |      | Del  | PGDN  | | PGUP  | Home  |      |   N  |   M  |   ,  |   .  |   /  | Shift|
- * |-------------+------+------+------+------+------+------+-------+-+-------+-------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | Meta | Alt  |             | Meta | Space| Lower | | Raise | Enter | RAlt |             | LEFT | DOWN | UP   | RIGHT|
- * .----------------------------------------------------------------------------------------------------------------------------------.
+/* ADJUST (Lower + Raise, or hold Del/Adj)
+ * .-------------------------------------------------------------------------------------------------------------------------------------.
+ * | BT0  | BT1  | BT2  | BT3  | BT4  |      |                                                  | BT0  | BT1  | BT2  | BT3  | BT4  |       |
+ * |------+------+------+------+------+------|                                                  |------+------+------+------+------+-------|
+ * | Boot |      |      |      |      |      |                                                  |      |      |      |      |      | Boot  |
+ * |------+------+------+------+------+------|                                                  |------+------+------+------+------+-------|
+ * |Reset |      |      |      |      | Game |                                                  |      |      |      |      |      | Reset |
+ * |------+------+------+------+------+------+------+------.                  .------+------+------+------+------+------+------+-------|
+ * |      |      |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |      |       |
+ * |------+------+------+------+------+------+------+------+------|  |------+------+------+------+------+------+------+------+-------|
+ * |BT Clr|      |      |      |             |      |      |      |  |      |      |      |             |      |      |      |BTClrAl|
+ * '-------------------------------------------------------------------------------------------------------------------------------------'
+ * Boot/Reset act on the half they are pressed on, so each half has its own pair.
  */
                         bindings = <
-&bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &bt BT_SEL 5                                                                          &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none
-&none        &none        &none        &none        &none        &none                                                                                 &none        &none        &none        &none        &none        &none
-&none        &none        &none        &none        &none        &tog GAME                                                                             &none        &none        &none        &none        &none        &none
+&bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none                                                                                 &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none
+&bootloader  &none        &none        &none        &none        &none                                                                                 &none        &none        &none        &none        &none        &bootloader
+&sys_reset   &none        &none        &none        &none        &tog GAME                                                                             &none        &none        &none        &none        &none        &sys_reset
 &none        &none        &none        &none        &none        &none                     &none       &none         &none       &none                 &none        &none        &none        &none        &none        &none
-&bt BT_CLR   &none        &none        &none                                     &none     &none       &trans        &trans      &none     &none                                 &none        &none        &none        &bt BT_CLR
-                        >;
-                };
-
-                hyper_layer {
-/* QWERTY
- * .----------------------------------------------------------------------------------------------------------------------------------.
- * |  `   |   1  |   2  |   3  |   4  |   5  |                                              |   6  |   7  |   8  |   9  |   0  | PScr |
- * |-------------+------+------+------+------+------+------+-------+-+-------+-------+------+------+------+------+------+------+------|
- * | ESC  |   Q  |   W  |   E  |   R  |   T  |                                              |   Y  |   U  |   I  |   O  |   P  |  \   |
- * |-------------+------+------+------+------+------+------+-------+-+-------+-------+------+------+------+------+------+------+------|
- * | Tab  |   A  |   S  |   D  |   F  |   G  |                                              |   H  |   J  |   K  |   L  |   ;  |  '   |
- * |-------------+------+------+------+------+------+------+-------+-+-------+-------+------+------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |      | Del  | PGDN  | | PGUP  | Home  |      |   N  |   M  |   ,  |   .  |   /  | Shift|
- * |-------------+------+------+------+------+------+------+-------+-+-------+-------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | Meta | Alt  |             | Meta | Space| Lower | | Raise | Enter | RAlt |             | LEFT | DOWN | UP   | RIGHT|
- * .----------------------------------------------------------------------------------------------------------------------------------.
- */
-                        bindings = <
-&trans        &trans     &trans      &trans      &trans      &trans                                                                         &trans   &trans     &trans      &trans     &trans        &none
-&trans        &trans     &kp LC(LS(LA(LG(W)))) &trans      &trans      &trans                                                                         &trans   &trans     &trans      &trans     &trans        &none
-&trans        &trans     &trans      &trans      &kp LC(LS(LA(LG(F)))) &trans                                                                         &kp LEFT &kp DOWN   &kp UP      &kp RIGHT  &trans        &none
-&trans        &trans     &trans      &trans      &trans      &trans             &trans      &trans        &trans      &trans                &trans   &trans     &trans      &trans     &trans        &none
-&trans        &trans     &trans      &trans                           &trans    &kp LC(LS(LA(LG(SPACE))))       &trans        &trans      &trans    &trans                          &trans      &trans     &trans        &none
-                        >;
-                };
-
-                game_layer {
-                        bindings = <
-&kp  GRAVE    &kp  N1    &kp  N2     &kp  N3     &kp  N4    &kp  N5                                                                        &kp  N6  &kp  N7    &kp  N8     &kp  N9    &kp  N0       &kp  PSCRN
-&kp  TAB      &kp  Q     &kp  W      &kp  E      &kp  R     &kp  T                                                                         &kp  Y   &kp  U     &kp  I      &kp  O     &kp  P        &kp  BSLH
-&kp  ESC      &kp  A     &kp  S      &kp  D      &kp  F     &kp  G                                                                         &kp  H   &kp  J     &kp  K      &kp  L     &kp  SEMI     &kp  SQT
-&kp  LSHFT    &kp  Z     &kp  X      &kp  C      &kp  V     &kp  B             &kp  DEL    &kp  PG_DN    &kp  PG_UP  &kp  HOME             &kp  N   &kp  M     &kp  COMMA  &kp  DOT   &kp  SLASH    &kp  ENTER
-&kp  LCTRL    &kp LALT   &kp  LMETA  &kp  LALT                       &kp LMETA &kp  SPACE  &mo  LOWER    &mo  RAISE  &kp  BSPC &kp  RALT                       &kp  LEFT   &kp  DOWN  &kp  UP       &kp  RIGHT
+&bt BT_CLR   &none        &none        &none                                     &none     &none       &trans        &trans      &none     &none                                 &none        &none        &none        &bt BT_CLR_ALL
                         >;
                 };
         };
